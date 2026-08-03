@@ -57,8 +57,6 @@ git clone https://github.com/wholetomy/everbooking
 
 cd everbooking
 
-cp .env.example .env
-
 docker compose up --build -d
 
 ```
@@ -68,10 +66,16 @@ Para acessar o Everbooking, utilize os 2 links abaixo:
 Frontend: 
 http://localhost:3000
 
+Credenciais de administrador do frontend:
+
+- E-mail: admin@admin.com
+
+- Senha: admin
+
 Backend: 
 http://localhost:8000/docs
 
-Para parar:
+Para parar a aplicação, basta utilizar o comando abaixo:
 
 ```bash
 docker compose down
