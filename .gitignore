@@ -1,6 +1,13 @@
 # VARIÁVEIS DE AMBIENTE
 .env
-.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Permitir arquivos de exemplo
+!.env.example
+!**/.env.example
 
 # PYTHON
 **/__pycache__/
