@@ -18,6 +18,7 @@ type Sala = {
 type Agendamentos = {
     cod_agendamento: number;
     agendado_por: number;
+    nome_agendado_por: string;
     cod_sala: number;
     sala: string;
     horario_inicial: string;
@@ -178,13 +179,14 @@ export default function Sala() {
             });
 
             if (!response.ok) {
-                //router.replace("/home");
-                return;
+                const erro = await response.json();
+                throw new Error(erro.detail);
             }
 
             const result = await response.json();
 
             setAgendamentos(result);
+
         } catch (error) {
             console.error(error);
             router.replace("/home");
@@ -291,6 +293,7 @@ export default function Sala() {
                                     <table className="w-full text-sm border-collapse">
                                         <thead>
                                             <tr className="border-b border-[#B19252] dark:border-[#656395] text-left">
+                                                <th className="p-3 font-semibold">Agendado por</th>
                                                 <th className="p-3 font-semibold">Início</th>
                                                 <th className="p-3 font-semibold">Fim</th>
                                                 <th className="p-3 font-semibold">Status</th>
@@ -303,6 +306,10 @@ export default function Sala() {
                                                         key={agendamento.cod_agendamento}
                                                         className="border-b border-[#e8d6b5] dark:border-[#4a4964] hover:bg-[#F9F3E8] dark:hover:bg-[#34354A] transition-colors"
                                                     >
+                                                        <td className="p-3 font-medium whitespace-nowrap">
+                                                            {agendamento.nome_agendado_por}
+                                                        </td>
+
                                                         <td className="p-3 whitespace-nowrap">
                                                             {new Date(agendamento.horario_inicial).toLocaleString(
                                                                 "pt-BR",

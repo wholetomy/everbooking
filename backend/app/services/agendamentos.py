@@ -189,6 +189,7 @@ def VisualizarAgendamentosDeUmaSalaEspecificaNoSistema(cod_sala: int):
     SELECT
         a.cod_agendamento,
         a.agendado_por,
+        u.nome AS nome_agendado_por,
         a.sala AS cod_sala,
         s.sala,
         a.horario_inicial,
@@ -196,10 +197,9 @@ def VisualizarAgendamentosDeUmaSalaEspecificaNoSistema(cod_sala: int):
         ags.status_agendamento,
         a.created_at
     FROM agendamentos a
-    LEFT JOIN agendamentos_status ags
-        ON ags.cod_status_agendamento = a.status_agendamento
-    LEFT JOIN salas s
-        ON s.cod_sala = a.sala
+    LEFT JOIN agendamentos_status ags ON ags.cod_status_agendamento = a.status_agendamento
+    LEFT JOIN salas s ON s.cod_sala = a.sala
+    LEFT JOIN usuarios u ON u.cod_usuario = a.agendado_por 
     WHERE a.sala = %s
     ORDER BY ags.status_agendamento ASC
     """
